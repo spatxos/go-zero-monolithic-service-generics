@@ -36,8 +36,10 @@ func BaseHandlerFunc[T logic.BaseLogic](svcCtx *svc.ServiceContext, t T) http.Ha
 			httpx.Error(w, err)
 			return
 		}
+		var ins T
+		ins.Handler(req, w, r, svcCtx)
 		//通过泛型动态调用不同结构体的Handler方法
-		cc := logic.New[T]()
-		cc.LogicHandler(req, w, r, svcCtx)
+		// cc := logic.New[T]()
+		// cc.LogicHandler(req, w, r, svcCtx)
 	}
 }
